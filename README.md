@@ -1,7 +1,7 @@
 cron-editor
 ===
 
-A library that helps the user graphically build a CRON expression using Angular 2+. It is a fork of the  vincentjames501's [angular-cron-gen](https://github.com/vincentjames501/angular-cron-gen) for AngularJS 1.5+.
+A library that helps the user graphically build a CRON expression using Angular 2+. It is a fork of the  vincentjames501's [angular-cron-gen](https://github.com/vincentjames501/angular-cron-gen) for AngularJS 1.5+ and claudiuconstantin's [cron-editor] (https://github.com/claudiuconstantin/cron-editor).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.0. To run the sample app just run `npm run start` and go to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
