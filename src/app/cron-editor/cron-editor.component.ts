@@ -77,36 +77,36 @@ export class CronGenComponent implements OnInit, OnChanges {
 
         switch (this.activeTab) {
             case "minutes":
-                this.cron = `${this.state.minutes.seconds} 0/${this.state.minutes.minutes} * 1/1 * ? *`;
+                this.cron ="*/" + this.state.minutes.minutes + " * * * *";
                 break;
             case "hourly":
-                this.cron = `${this.state.hourly.seconds} ${this.state.hourly.minutes} 0/${this.state.hourly.hours} 1/1 * ? *`;
+                this.cron =this.state.hourly.minutes + " */" + this.state.hourly.hours + " * * *";
                 break;
             case "daily":
                 switch (this.state.daily.subTab) {
                     case "everyDays":
-                        this.cron = `${this.state.daily.everyDays.seconds} ${this.state.daily.everyDays.minutes} ${this.hourToCron(this.state.daily.everyDays.hours, this.state.daily.everyDays.hourType)} 1/${this.state.daily.everyDays.days} * ? *`;
+                        this.cron =this.state.daily.everyDays.minutes + " " + this.hourToCron(this.state.daily.everyDays.hours, this.state.daily.everyDays.hourType) + " */" + this.state.daily.everyDays.days + " * *";
                         break;
                     case "everyWeekDay":
-                        this.cron = `${this.state.daily.everyWeekDay.seconds} ${this.state.daily.everyWeekDay.minutes} ${this.hourToCron(this.state.daily.everyWeekDay.hours, this.state.daily.everyWeekDay.hourType)} ? * MON-FRI *`;
+                        this.cron =this.state.daily.everyWeekDay.minutes + " " + this.hourToCron(this.state.daily.everyWeekDay.hours, this.state.daily.everyWeekDay.hourType) + " * MON-FRI *";
                         break;
                     default:
                         throw "Invalid cron daily subtab selection";
                 }
                 break;
             case "weekly":
-                const days = this.selectOptions.days
-                    .reduce((acc, day) => this.state.weekly[day] ? acc.concat([day]) : acc, [])
+                var days = this.selectOptions.days
+                    .reduce(function (acc, day) { return _this.state.weekly[day] ? acc.concat([day]) : acc; }, [])
                     .join(",");
-                this.cron = `${this.state.weekly.seconds} ${this.state.weekly.minutes} ${this.hourToCron(this.state.weekly.hours, this.state.weekly.hourType)} ? * ${days} *`;
+                this.cron =this.state.weekly.minutes + " " + this.hourToCron(this.state.weekly.hours, this.state.weekly.hourType) + " * * "+ days;
                 break;
             case "monthly":
                 switch (this.state.monthly.subTab) {
                     case "specificDay":
-                        this.cron = `${this.state.monthly.specificDay.seconds} ${this.state.monthly.specificDay.minutes} ${this.hourToCron(this.state.monthly.specificDay.hours, this.state.monthly.specificDay.hourType)} ${this.state.monthly.specificDay.day} 1/${this.state.monthly.specificDay.months} ? *`;
+                        this.cron =this.state.monthly.specificDay.minutes + " " + this.hourToCron(this.state.monthly.specificDay.hours, this.state.monthly.specificDay.hourType) + " " + this.state.monthly.specificDay.day + " */" + this.state.monthly.specificDay.months + " *";
                         break;
                     case "specificWeekDay":
-                        this.cron = `${this.state.monthly.specificWeekDay.seconds} ${this.state.monthly.specificWeekDay.minutes} ${this.hourToCron(this.state.monthly.specificWeekDay.hours, this.state.monthly.specificWeekDay.hourType)} ? 1/${this.state.monthly.specificWeekDay.months} ${this.state.monthly.specificWeekDay.day}${this.state.monthly.specificWeekDay.monthWeek} *`;
+                        this.cron =this.state.monthly.specificWeekDay.minutes + " " + this.hourToCron(this.state.monthly.specificWeekDay.hours, this.state.monthly.specificWeekDay.hourType) + " */" + this.state.monthly.specificWeekDay.months + " " + this.state.monthly.specificWeekDay.day + this.state.monthly.specificWeekDay.monthWeek + " *";
                         break;
                     default:
                         throw "Invalid cron monthly subtab selection";
@@ -115,10 +115,10 @@ export class CronGenComponent implements OnInit, OnChanges {
             case "yearly":
                 switch (this.state.yearly.subTab) {
                     case "specificMonthDay":
-                        this.cron = `${this.state.yearly.specificMonthDay.seconds} ${this.state.yearly.specificMonthDay.minutes} ${this.hourToCron(this.state.yearly.specificMonthDay.hours, this.state.yearly.specificMonthDay.hourType)} ${this.state.yearly.specificMonthDay.day} ${this.state.yearly.specificMonthDay.month} ? *`;
+                        this.cron = this.state.yearly.specificMonthDay.minutes + " " + this.hourToCron(this.state.yearly.specificMonthDay.hours, this.state.yearly.specificMonthDay.hourType) + " " + this.state.yearly.specificMonthDay.day + " " + this.state.yearly.specificMonthDay.month + " *";
                         break;
                     case "specificMonthWeek":
-                        this.cron = `${this.state.yearly.specificMonthWeek.seconds} ${this.state.yearly.specificMonthWeek.minutes} ${this.hourToCron(this.state.yearly.specificMonthWeek.hours, this.state.yearly.specificMonthWeek.hourType)} ? ${this.state.yearly.specificMonthWeek.month} ${this.state.yearly.specificMonthWeek.day}${this.state.yearly.specificMonthWeek.monthWeek} *`;
+                        this.cron = this.state.yearly.specificMonthWeek.minutes + " " + this.hourToCron(this.state.yearly.specificMonthWeek.hours, this.state.yearly.specificMonthWeek.hourType) + " " + this.state.yearly.specificMonthWeek.month + " * " + this.state.yearly.specificMonthWeek.day + this.state.yearly.specificMonthWeek.monthWeek ;
                         break;
                     default:
                         throw "Invalid cron yearly subtab selection";
